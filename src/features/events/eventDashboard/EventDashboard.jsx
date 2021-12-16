@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Grid } from "semantic-ui-react";
 import EventForm from "../eventForm/EventForm";
 import EventList from "./EventList";
-import { sampleData } from "../../../app/api/sampleData";
-import cuid from "cuid";
+import { sampleData } from "../../../app/api/sampleData.js";
 
 export default function EventDashboard({
   formOpen,
@@ -23,7 +22,7 @@ export default function EventDashboard({
   }
 
   function handleDeleteEvent(id) {
-    setEvents(events.filter((e) => e.id != id));
+    setEvents(events.filter((e) => e.id !== id));
   }
 
   return (
