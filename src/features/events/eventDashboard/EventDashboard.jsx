@@ -9,6 +9,7 @@ export default function EventDashboard({
   setFormOpen,
   selectEvent,
   selectedEvent,
+  authenticated,
 }) {
   const [events, setEvents] = useState(sampleData);
 
@@ -29,6 +30,7 @@ export default function EventDashboard({
     <Grid>
       <Grid.Column width={10}>
         <EventList
+          authenticated={authenticated}
           events={events}
           selectEvent={selectEvent}
           deleteEvent={handleDeleteEvent}

@@ -11,6 +11,7 @@ import NavBar from "../../features/nav/NavBar";
 function App() {
   const [formOpen, setFormOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [authenticated, setAuthenticated] = useState(false);
 
   function handleSelectEvent(event) {
     setSelectedEvent(event);
@@ -28,19 +29,31 @@ function App() {
   //   selectEvent={handleSelectEvent}
   //   selectedEvent={selectedEvent}
   // />
+
   return (
     <>
-      <Route exact path="/" component={HomePage} />
+      <Route exact path='/' component={HomePage} />
       <Route
         path={"/(.+)"}
         render={() => (
           <>
-            <NavBar setFormOpen={handleCreateFormOpen}></NavBar>
-            <Container className="main">
-              <Route exact path="/" component={HomePage} />
-              <Route exact path="/events" component={EventDashboard} />
-              <Route path="/events:id" component={EventDetailPage} />
-              <Route path="/createEvent" component={EventForm} />
+            <NavBar
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
+              setFormOpen={handleCreateFormOpen}
+            ></NavBar>
+            <Container className='main'>
+              <Route exact path='/' component={HomePage} />
+              <Route
+                authenticated={authenticated}
+                render={({ props }) => (
+                  <EventDashboard {...props} authenticated={authenticated} />
+                )}
+                exact
+                path='/events'
+              />
+              <Route path='/events/:id' component={EventDetailPage} />
+              <Route path='/createEvent' component={EventForm} />
             </Container>
           </>
         )}
